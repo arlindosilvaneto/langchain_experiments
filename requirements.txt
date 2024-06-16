@@ -1,0 +1,9 @@
+langchain
+langchain_openai
+langchain_community
+langchainhub
+chainlit
+faiss-cpu
+tiktoken
+wikipedia
+requests

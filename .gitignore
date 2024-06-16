@@ -1,0 +1,7 @@
+__pycache__
+.chainlit
+env
+.env
+.files
+chainlit.md
+*.db
