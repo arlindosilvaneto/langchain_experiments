@@ -15,6 +15,7 @@ llm = ChatOpenAI(
     temperature=0.5,
 )
 
+# Bind the tool to the language model so it can be used as a context source during the conversarion
 llm_with_tools = llm.bind_tools([get_titanic_character_info])
 
 prompt = ChatPromptTemplate.from_template(
@@ -34,6 +35,8 @@ chain = (
     | (lambda x: debug_method_call(x))
     | (lambda x: x.tool_calls[0]["args"])
     | get_titanic_character_info
+    # call pure LLM to interpret the output and generate a response
+    | llm
     | StrOutputParser()
 )
 

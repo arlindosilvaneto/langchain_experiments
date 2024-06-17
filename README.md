@@ -8,6 +8,14 @@ $ source env/bin/activate
 $ pip install -r requirements.txt
 ```
 
+## Graphviz Intallation for Image Generation (OSx)
+
+```shell
+$ brew install graphviz
+$ export GRAPHVIZ_DIR="$(brew --prefix graphviz)"
+$ pip install pygraphviz --config-settings=--global-option=build_ext --config-settings=--global-option="-I$GRAPHVIZ_DIR/include" --config-settings=--global-option="-L$GRAPHVIZ_DIR/lib"
+```
+
 ## Chainlit
 
 Chainlit is a simple UI used to make it easy to interact with LLM apps.
@@ -64,16 +72,18 @@ $ chainlit run src/tour_de_france_rag.py
 - Who won the tour?
 - Who ended up with the green jersey?
 
-### Titanic Database Tool
+### Titanic Database Chain with Tool
 
 This experiment makes use of a tool to query a database to answer the user's question.
 
 Tools with Chains are really constrained and need to be defined in the expected usage order. Chains doesn't have the ability to use tools only when required, they only have the ability to infer the tool paramters. 
 This experiment is just an introduction for custom tools and how to use them with simples Chains.
 
+> I added an extra LLM to the chain to interpret the tool output. This way we can have a better chat message by identifying the data context instead of just returning it directly to the user.
+
 #### Resources
 
-Download the database from [https://github.com/brunogarcia/langchain-titanic-sqlite/blob/main/titanic.db](https://github.com/brunogarcia/langchain-titanic-sqlite/blob/main/titanic.db) and place it in the root folder (not in the source)
+Download the database from [https://github.com/brunogarcia/langchain-titanic-sqlite/blob/main/titanic.db](https://github.com/brunogarcia/langchain-titanic-sqlite/blob/main/titanic.db) and place it in the root folder (not in the src folder)
 
 ```shell
 $ chainlit run src/titanic_chain_tool.py
@@ -96,10 +106,23 @@ The current prompt is quite simple, and you can find it in the [prompt Hub URL](
 
 #### Resources
 
-Download the database from [https://github.com/brunogarcia/langchain-titanic-sqlite/blob/main/titanic.db](https://github.com/brunogarcia/langchain-titanic-sqlite/blob/main/titanic.db) and place it in the root folder (not in the source)
+Download the database from [https://github.com/brunogarcia/langchain-titanic-sqlite/blob/main/titanic.db](https://github.com/brunogarcia/langchain-titanic-sqlite/blob/main/titanic.db) and place it in the root folder (not in the src folder)
 
 ```shell
-$ chainlit run src/titanic_chain_tool.py
+$ chainlit run src/titanic_agent_tool.py
+```
+
+#### Example Questions
+- What can you tell me about Jack?
+
+### LangGraph Experiment
+
+LangGraph is a library used to create agents as graphs (not DAGs, as it allows cyclic flows).
+This experiment shows how to rewrite the [Titanic Database Chain with Tool](#titanic-database-chain-with-tool) as a graph.
+This looks as deterministic as the other experiment, but next ones will make more use of the features that makes this library so powerful.
+
+```shell
+$ chainlit run src/simple_langgraph.py
 ```
 
 #### Example Questions
