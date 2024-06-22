@@ -115,15 +115,41 @@ $ chainlit run src/titanic_agent_tool.py
 #### Example Questions
 - What can you tell me about Jack?
 
-### LangGraph Experiment
+### LangGraph Simple Graph
 
-LangGraph is a library used to create agents as graphs (not DAGs, as it allows cyclic flows).
+LangGraph is a library used to create agents as graphs (not DAGs, or Direct Acyclic Graphs, as it allows cyclic flows).
 This experiment shows how to rewrite the [Titanic Database Chain with Tool](#titanic-database-chain-with-tool) as a graph.
-This looks as deterministic as the other experiment, but next ones will make more use of the features that makes this library so powerful.
+This flow looks as deterministic as the previous experiment, but next ones will make more use of the features that makes this library so powerful.
+
+This experiment also makes use of the `MessageGraph` workflow, which is designed for conversational applications, where we are just interested in the message flow and simpler agent designs.
 
 ```shell
-$ chainlit run src/simple_langgraph.py
+$ chainlit run src/langraph_simple_graph.py
 ```
+
+#### Example Questions
+- What can you tell me about Jack?
+
+### LangGraph Native REAct Agent
+
+This is the native way to create the previous [LangGrahp Simple Graph](#langgraph-simple-graph) with a simple message flow. 
+
+```shell
+$ chainlit run src/langraph_simple_graph.py
+```
+
+#### Example Questions
+- What can you tell me about Jack?
+
+### LangGraph StateGraph
+
+The use of the `StateGraph`, instead of a `MessageGraph`, allows us to control more complex flows based on a state machine that can control the flow to multiple agentes based on the result of the previous steps. Please refer to the [LangChain conceptual documentation](https://langchain-ai.github.io/langgraph/concepts/).
+
+```shell
+$ chainlit run src/langraph_state_graph.py
+```
+
+> Detailed information are available at [LANGGRAPH.md](LANGGRAPH.md) document.
 
 #### Example Questions
 - What can you tell me about Jack?

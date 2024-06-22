@@ -50,11 +50,11 @@ workflow.add_conditional_edges(
     should_continue,
 )
 
-# Transition after action has been called for futher processing
-# If we don't add this edge, the workflow will end and the last message
-# will be the action node's return value.
-# This is why we need the conditional edge to determine whether to continue or not,
-# after the action node has been called and returned to the agent.
+# Transition after action has been called for futher processing.
+# If we don't add this edge the workflow will return, and the last message
+# will be the action node's return value, without any data interpretation.
+# IMPORTANT: This is why we need the conditional edge to determine whether to continue or not,
+# after the action node has been called and returned back to the agent.
 workflow.add_edge("titanic_data_fetcher", "agent")
 
 # Here we only save in-memory
